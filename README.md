@@ -1,73 +1,62 @@
-# React + TypeScript + Vite
+# Dog Breed Viewer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a small React and TypeScript project that connects to the [Dog CEO API](https://dog.ceo/dog-api/) to browse dog breeds and view random images.
+The goal of the project is to demonstrate a simple but complete workflow: fetching data from an API, displaying it in the UI, handling errors, and writing unit tests.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- Search for breeds and sub-breeds (for example, `bulldog/boston`)
+- Select a breed from a dropdown list
+- Display three random images each time a breed is selected
+- Option to mark images as favourites (UI only, no persistence)
+- Error banner if something goes wrong with an API call
+- TypeScript support throughout the project
+- Unit tests written with Vitest and React Testing Library
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Technology
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [Vite](https://vitejs.dev/) for fast builds and development
+- [React 19](https://react.dev/) for the UI
+- [TypeScript](https://www.typescriptlang.org/) for type safety
+- [Testing Library](https://testing-library.com/) and [Vitest](https://vitest.dev/) for testing
+- CSS for basic styling
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Getting Started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/mowems/dog-breed-viewer.git
+cd dog-breed-viewer
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+npm install
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 3. Start the development server
+
+npm run dev
+
+### 4. Run the tests
+
+npm run test
+
+## Project Structure
+
+- src/components – UI components (BreedSearch, BreedSelect, ImageGrid, ErrorBanner)
+- src/hooks – custom hooks (e.g., useDogBreeds)
+- src/utils – helper functions (debounce, type definitions)
+- src/lib – API logic
+
+## Future Improvements
+
+- Persist favourites using local storage or a backend
+- Add more robust styling
+- Expand test coverage
