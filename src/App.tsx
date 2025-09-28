@@ -7,6 +7,7 @@ import ErrorBanner from "./components/ErrorBanner";
 
 export default function App() {
   const {
+    allBreeds,
     filtered,
     breed,
     setBreed,
@@ -15,22 +16,59 @@ export default function App() {
     loadingImages,
     error,
     onSearch,
+    recentBreeds,
   } = useDogBreeds();
+
+  const isFiltering = filtered.length !== allBreeds.length;
 
   return (
     <div className="app">
       <aside className="sidebar">
         <h2 style={{ marginTop: 0 }}>Dog Breed Viewer</h2>
 
-        <BreedSearch onChange={onSearch} />
+        <div className="section">
+          <div className="label">Search</div>
+          <BreedSearch onChange={onSearch} />
+          <div className="helper">
+            Type to filter. Supports sub-breeds (e.g. “bulldog/boston”).
+          </div>
+        </div>
 
-        {loadingBreeds && <div>Loading breed list…</div>}
+        {loadingBreeds && <div className="section">Loading breed list…</div>}
 
         {!loadingBreeds && (
-          <>
+          <div className="section">
+            <div className="label">Select a breed</div>
             <BreedSelect breeds={filtered} value={breed} onChange={setBreed} />
-            <div className="helper">Breeds: {filtered.length}</div>
-          </>
+
+            <div className="helper">
+              {!isFiltering
+                ? `Showing all ${allBreeds.length} breeds.`
+                : filtered.length === 0
+                ? "No breeds match your search."
+                : filtered.length === 1
+                ? "1 breed match your search."
+                : `${filtered.length} breeds match your search.`}
+            </div>
+          </div>
+        )}
+
+        {recentBreeds.length > 0 && (
+          <div className="section">
+            <div className="label">Recent</div>
+            <div className="chips">
+              {recentBreeds.map((r) => (
+                <button
+                  key={r}
+                  className="chip"
+                  onClick={() => setBreed(r)}
+                  aria-label={`Select ${r}`}
+                >
+                  {r}
+                </button>
+              ))}
+            </div>
+          </div>
         )}
 
         {error && <ErrorBanner message={error} />}

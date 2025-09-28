@@ -1,6 +1,14 @@
-:root { --bg: #0b1020; --panel: #121932; --muted: #9aa3b2; --text: #e7ecf5; --accent: #6ea8fe; }
+:root {
+  --bg: #0b1020;
+  --panel: #121932;
+  --muted: #9aa3b2;
+  --text: #e7ecf5;
+  --accent: #6ea8fe;
+}
+
 * { box-sizing: border-box; }
 html, body, #root { height: 100%; }
+
 body {
   margin: 0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial,
@@ -8,24 +16,95 @@ body {
   background: var(--bg);
   color: var(--text);
 }
+
+/* Layout */
 .app { display: grid; grid-template-columns: 320px 1fr; height: 100%; }
 .sidebar { border-right: 1px solid #223; background: var(--panel); padding: 16px; overflow: auto; }
 .main { padding: 16px; overflow: auto; }
 
-.input {
-  width: 100%; padding: 10px 12px; border-radius: 10px;
-  border: 1px solid #334; background:#0e1530; color: var(--text); outline:none;
-}
+/* --- Inputs (shared) --- */
+.input,
 .select {
-  width: 100%; margin-top: 12px; padding: 10px; border-radius: 10px;
-  border: 1px solid #334; background:#0e1530; color: var(--text);
+  width: 100%;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  color: #fff;
+  padding: 10px 12px;
+  border-radius: 10px;
+  outline: none;
 }
-.helper { font-size: 12px; color: var(--muted); margin: 8px 0 16px; }
 
+/* Input with custom clear button */
+.input-wrap { position: relative; width: 100%; }
+.input-wrap .input { padding-right: 44px; } /* space for clear button */
+
+.input-clear {
+  position: absolute;
+  right: 8px;            /* snug to the right edge */
+  inset-block: 0;        /* logical top/bottom = 0 */
+  margin-block: auto;    /* vertical centering */
+  height: 28px;
+  width: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.05);
+  color: #bfbfbf;
+  line-height: 1;
+  cursor: pointer;
+}
+.input-clear:hover { background: rgba(255,255,255,.10); color: #fff; }
+.input-clear:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Select */
+.select { margin-top: 12px; }
+
+/* Helper / labels */
+.helper {
+  margin-top: 6px;
+  margin-bottom: 64px; /* add more space below */
+  font-size: 12px;
+  line-height: 1.4;
+  color: rgba(255,255,255,.45); /* lighter color for less noise */
+}
+.sidebar .section { margin-top: 18px; }
+.label {
+  font-size: 12px;
+  letter-spacing: .02em;
+  color: rgba(255,255,255,.55);
+  margin-bottom: 6px;
+}
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: rgba(255,255,255,.8);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+/* Chips (recent breeds) */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.04);
+  color: #ddd;
+  padding: 6px 10px;
+  line-height: 1;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.chip:hover { background: rgba(255,255,255,.08); }
+.chip:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Grid / cards */
 .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
 .card { background:#0f1732; border:1px solid #223; border-radius: 12px; overflow: hidden; }
 .card img { width: 100%; display: block; aspect-ratio: 4/3; object-fit: cover; }
 
+/* Buttons / misc */
 .row { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
 .button { padding:8px 12px; background:#1a254a; border:1px solid #2a3a6b; border-radius:10px; color:#cfe1ff; cursor:pointer; }
 .button:disabled { opacity:.6; cursor:not-allowed; }
@@ -34,3 +113,46 @@ body {
 .small { font-size:12px; color:var(--muted); }
 .badge { padding:4px 8px; border-radius:999px; border:1px solid #334; background:#0b142e; font-size:12px; color:#bcd; }
 .header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+
+/* Skeletons */
+.card.skeleton { border-color: rgba(255,255,255,.08); }
+.sk-img { height: 180px; background: linear-gradient(90deg,#222 0%,#2a2a2a 50%,#222 100%); animation: shimmer 1.2s infinite; border-radius: 12px 12px 0 0; }
+.sk-row { height: 32px; margin: 12px; border-radius: 8px; background: linear-gradient(90deg,#222 0%,#2a2a2a 50%,#222 100%); animation: shimmer 1.2s infinite; }
+@keyframes shimmer { 0% { background-position: -200px 0; } 100% { background-position: 200px 0; } }
+
+/* Small-screen tweak */
+@media (max-width: 700px) {
+  .sidebar { padding-bottom: 24px; }
+}
+
+/* Input + custom clear button (authoritative) */
+.input-wrap { position: relative; width: 100%; }
+
+.input-wrap .input {
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 44px; /* space for the clear button */
+}
+
+.input-wrap > .input-clear {
+  position: absolute;
+  right: 1px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 24px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.05);
+  color: #bfbfbf;
+  line-height: 1;
+  padding: 0;        /* prevent default button height quirks */
+  margin: 0;         /* ensure no offset */
+  cursor: pointer;
+  z-index: 1;        /* sit above the input */
+}
+.input-wrap > .input-clear:hover { background: rgba(255,255,255,.10); color: #fff; }
+.input-wrap > .input-clear:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
