@@ -76,8 +76,8 @@ export default function App() {
 
       <main className="main">
         <div className="header">
-          <h3 style={{ margin: 0 }}>{breed || "Pick a breed"}</h3>
-          <span className="small">
+          <h3 className="header-title">{breed || "Pick a breed"}</h3>
+          <span className="header-note small">
             Shows 3 random images per selection. Changes update automatically.
           </span>
         </div>

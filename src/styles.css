@@ -156,3 +156,110 @@ body {
 }
 .input-wrap > .input-clear:hover { background: rgba(255,255,255,.10); color: #fff; }
 .input-wrap > .input-clear:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* row spacing under images */
+.button-row { padding: 12px; gap: 10px; }
+
+/* Non-jumpy favourite button */
+.button-fav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  min-width: 128px;
+  border-radius: 10px;
+  border: 1px solid #2a3a6b;
+  background: #1a254a;
+  color: #cfe1ff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .18s ease, color .18s ease, border-color .18s ease, transform .06s ease;
+}
+
+.button-fav:hover { background: #24356b; border-color: #3a4a8a; color: #fff; }
+.button-fav:active { transform: translateY(1px); }
+
+.button-fav.active { background: #2a3a6b; border-color: #3d58a6; color: #fff; }
+
+/* Keep the label width stable even if text changes later */
+.button-fav__label { display: inline-block; min-width: 84px; text-align: left; }
+
+/* Busy text: subtle */
+.saving-dot {
+  font-size: 12px;
+  color: var(--muted);
+  align-self: center;
+}
+
+/* Card image corners match card radius */
+.card img { border-radius: 12px 12px 0 0; }
+
+/* Generic badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1;
+  border: 1px solid transparent;
+}
+
+/* Info-style look for passive status */
+.badge--info {
+  background: rgba(110, 168, 254, 0.12);          /* soft blue wash */
+  border-color: rgba(110, 168, 254, 0.28);
+  color: #a9c9ff;                                  /* calm, informative */
+}
+
+/* Small dot for a subtle visual cue */
+.badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.9;
+}
+
+@media (max-width: 900px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { position: static; border-right: none; border-bottom: 1px solid #223; }
+  .main { max-width: 720px; }
+}
+
+/* Default (desktop/tablet) */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.header-title {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.2;
+  word-break: break-word;        /* wrap long breed names like african/wild */
+}
+
+.header-note {
+  white-space: nowrap;           /* single line on wide screens */
+  opacity: .85;
+}
+
+/* Mobile tweaks */
+@media (max-width: 700px) {
+  .header {
+    flex-direction: column;      /* stack title above the note */
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .header-note {
+    white-space: normal;         /* allow wrapping under the title */
+    line-height: 1.3;
+  }
+}

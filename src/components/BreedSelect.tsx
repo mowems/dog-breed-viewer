@@ -15,7 +15,7 @@ export default function BreedSelect({ breeds, value, onChange }: Props) {
       aria-label="Select a breed"
     >
       <option value="" disabled>
-        Select a breed…
+        Browse breeds...
       </option>
       {breeds.map((b) => (
         <option key={b} value={b}>
